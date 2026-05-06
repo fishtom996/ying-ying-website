@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鶯鶯 ING-ING | 圓仔花意識拼貼劇坊</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0d0208;
+            --bg-section: #12030a;
+            --bg-card: #1a0512;
+            --neon-pink: #ff2d95;
+            --neon-purple: #b829dd;
+            --neon-magenta: #ff1493;
+            --neon-rose: #ff69b4;
+            --text-bright: #ffb6e6;
+            --text: #f0d0e0;
+            --text-dim: #a08090;
+            --text-muted: #6a5060;
+            --border: #2a1020;
+            --glow-pink: rgba(255, 45, 149, 0.4);
+            --glow-purple: rgba(184, 41, 221, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.9;
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--neon-pink); color: #fff; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple));
+            border-radius: 3px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(13, 2, 8, 0.92);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 45, 149, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            padding: 10px 0;
+            background: rgba(13, 2, 8, 0.98);
+            border-bottom-color: rgba(255, 45, 149, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .logo {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--neon-pink);
+            text-decoration: none;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px var(--glow-pink);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--glow-pink);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        .mobile-menu-btn {
+            display: none;
+            color: var(--neon-pink);
+            font-size: 1.5rem;
+            cursor: pointer;
+            text-shadow: 0 0 10px var(--glow-pink);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--bg-dark);
+            overflow: hidden;
+            padding: 120px 20px 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/faCENppKftFJLDxC.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(180deg, rgba(13, 2, 8, 0.7) 0%, rgba(13, 2, 8, 0.5) 40%, rgba(13, 2, 8, 0.7) 100%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 20, 147, 0.1) 0%, transparent 70%);
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 15% 25%, rgba(255, 45, 149, 0.1) 0%, transparent 8%),
+                radial-gradient(circle at 85% 15%, rgba(184, 41, 221, 0.08) 0%, transparent 6%),
+                radial-gradient(circle at 75% 75%, rgba(255, 105, 180, 0.06) 0%, transparent 10%);
+            animation: floatPetals 15s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        @keyframes floatPetals {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(2deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 3;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .hero-tag {
+            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.3s;
+            text-shadow:
+                0 0 15px rgba(255, 105, 180, 0.8),
+                0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 5.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            letter-spacing: 20px;
+            text-shadow:
+                0 0 30px rgba(255, 45, 149, 0.9),
+                0 0 60px rgba(255, 45, 149, 0.6),
+                0 0 100px rgba(255, 20, 147, 0.4),
+                0 0 150px rgba(255, 20, 147, 0.2),
+                0 4px 20px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.6s;
+        }
+
+        .hero-subtitle {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 35px;
+            letter-spacing: 12px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.9s;
+            text-shadow:
+                0 0 20px rgba(255, 105, 180, 0.8),
+                0 0 40px rgba(255, 45, 149, 0.4),
+                0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-desc {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+            margin-bottom: 45px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 2;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.2s;
+            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 45px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.5s;
+        }
+
+        .hero-info-item {
+            text-align: center;
+            padding: 15px 25px;
+            background: rgba(255, 45, 149, 0.08);
+            border: 1px solid rgba(255, 45, 149, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-info-item .date {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-pink);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--glow-pink);
+        }
+
+        .hero-info-item .time {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 5px;
+        }
+
+        .hero-venue {
+            font-size: 1.1rem;
+            color: #fff;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 1.8s;
+            text-shadow:
+                0 0 20px rgba(255, 105, 180, 0.6),
+                0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 2.1s;
+        }
+
+        .btn {
+            padding: 14px 45px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-magenta), var(--neon-pink));
+            color: #fff;
+            box-shadow:
+                0 4px 25px rgba(255, 20, 147, 0.4),
+                0 0 40px rgba(255, 45, 149, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 8px 35px rgba(255, 20, 147, 0.6),
+                0 0 60px rgba(255, 45, 149, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--neon-pink);
+            border: 1.5px solid var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.1);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 45, 149, 0.15);
+            color: var(--neon-rose);
+            border-color: var(--neon-rose);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(255, 45, 149, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--neon-pink);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            text-shadow: 0 0 15px var(--glow-pink);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-15px); }
+            60% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        /* Sections */
+        section { padding: 100px 20px; position: relative; }
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-tag {
+            color: var(--neon-rose);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
+        }
+
+        .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: var(--neon-pink);
+            margin-bottom: 25px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 30px var(--glow-pink);
+        }
+
+        .section-desc {
+            color: var(--text-dim);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 2;
+        }
+
+        /* About Show */
+        .about-show {
+            background: var(--bg-section);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-show::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 45, 149, 0.06) 0%, transparent 70%);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-content h3 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            color: var(--neon-rose);
+            margin-bottom: 25px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .about-content p {
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 2.2;
+            text-align: justify;
+        }
+
+        .about-content .highlight {
+            color: var(--neon-pink);
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(255, 45, 149, 0.3);
+        }
+
+        .about-image { position: relative; }
+
+        .about-image-main {
+            width: 100%;
+            height: 500px;
+            background:
+                linear-gradient(135deg, rgba(255, 20, 147, 0.1) 0%, rgba(184, 41, 221, 0.08) 50%, rgba(255, 105, 180, 0.05) 100%),
+                var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 45, 149, 0.2);
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.5),
+                0 0 40px rgba(255, 45, 149, 0.1);
+        }
+
+        .about-image-main::after {
+            content: '鶯';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Serif TC', serif;
+            font-size: 8rem;
+            color: rgba(255, 45, 149, 0.08);
+            letter-spacing: 30px;
+            text-shadow: 0 0 60px rgba(255, 45, 149, 0.2);
+        }
+
+        .concept-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .concept-tag {
+            padding: 8px 20px;
+            background: rgba(255, 45, 149, 0.08);
+            border: 1px solid rgba(255, 45, 149, 0.25);
+            border-radius: 30px;
+            color: var(--neon-pink);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+
+        .concept-tag:hover {
+            background: rgba(255, 45, 149, 0.15);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 45, 149, 0.2);
+        }
+
+        /* Scenes */
+        .scenes {
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .scenes::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -200px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(184, 41, 221, 0.05) 0%, transparent 70%);
+        }
+
+        .scene-list { max-width: 800px; margin: 0 auto; }
+
+        .scene-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 45, 149, 0.1);
+            transition: all 0.3s;
+        }
+
+        .scene-item:hover {
+            padding-left: 15px;
+            background: rgba(255, 45, 149, 0.03);
+        }
+
+        .scene-number {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.1rem;
+            color: var(--neon-purple);
+            width: 80px;
+            flex-shrink: 0;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(184, 41, 221, 0.3);
+        }
+
+        .scene-title {
+            font-size: 1.1rem;
+            color: var(--text);
+            letter-spacing: 2px;
+        }
+
+        .scene-type {
+            margin-left: auto;
+            padding: 5px 15px;
+            background: rgba(184, 41, 221, 0.1);
+            border: 1px solid rgba(184, 41, 221, 0.2);
+            border-radius: 20px;
+            color: var(--neon-purple);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* Music */
+        .music {
+            background: var(--bg-section);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music::before {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            right: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.05) 0%, transparent 70%);
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .music-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px 35px;
+            border: 1px solid rgba(255, 45, 149, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-rose));
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .music-card:hover::before { transform: scaleX(1); }
+
+        .music-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 45, 149, 0.3);
+            box-shadow:
+                0 20px 40px rgba(0,0,0,0.4),
+                0 0 30px rgba(255, 45, 149, 0.1);
+        }
+
+        .music-type {
+            color: var(--neon-purple);
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px rgba(184, 41, 221, 0.3);
+        }
+
+        .music-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            color: var(--neon-pink);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 45, 149, 0.2);
+        }
+
+        .music-singer {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .music-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.9;
+        }
+
+        /* Team */
+        .team {
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .team::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(255, 20, 147, 0.04) 0%, transparent 70%);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .team-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 45, 149, 0.12);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 45, 149, 0.3);
+            box-shadow:
+                0 20px 40px rgba(0,0,0,0.4),
+                0 0 30px rgba(255, 45, 149, 0.15);
+        }
+
+        .team-image {
+            height: 280px;
+            background:
+                linear-gradient(135deg, rgba(255, 20, 147, 0.15) 0%, rgba(184, 41, 221, 0.1) 100%),
+                var(--bg-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 50%, var(--bg-card));
+        }
+
+        .team-content { padding: 30px; }
+
+        .team-role {
+            color: var(--neon-purple);
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 8px rgba(184, 41, 221, 0.2);
+        }
+
+        .team-name {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            color: var(--neon-pink);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 45, 149, 0.2);
+        }
+
+        .team-bio {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.9;
+        }
+
+        /* Staff */
+        .staff {
+            background: var(--bg-section);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .staff::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.05) 0%, transparent 70%);
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .staff-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 25px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 45, 149, 0.1);
+            transition: all 0.3s;
+        }
+
+        .staff-item:hover {
+            border-color: var(--neon-pink);
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.1);
+        }
+
+        .staff-role { color: var(--text-dim); font-size: 0.9rem; }
+        .staff-name { color: var(--text); font-weight: 500; letter-spacing: 1px; }
+
+        /* History */
+        .history {
+            background: var(--bg-dark);
+            position: relative;
+        }
+
+        .history-content { max-width: 800px; margin: 0 auto; }
+
+        .history-text {
+            color: var(--text-dim);
+            font-size: 1rem;
+            line-height: 2.4;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .history-text p { margin-bottom: 20px; }
+
+        .quote {
+            border-left: 3px solid var(--neon-pink);
+            padding-left: 25px;
+            margin: 30px 0;
+            color: var(--text-bright);
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 2;
+            text-shadow: 0 0 15px rgba(255, 182, 230, 0.2);
+        }
+
+        /* Contact */
+        .contact {
+            background:
+                radial-gradient(ellipse at 30% 50%, rgba(255, 20, 147, 0.04) 0%, transparent 50%),
+                var(--bg-section);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            color: var(--neon-rose);
+            margin-bottom: 30px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 45, 149, 0.08);
+            border: 1px solid rgba(255, 45, 149, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-pink);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: rgba(255, 45, 149, 0.15);
+            box-shadow: 0 0 15px rgba(255, 45, 149, 0.2);
+        }
+
+        .contact-text h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--text);
+            letter-spacing: 1px;
+        }
+
+        .contact-text p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .contact-text a {
+            color: var(--neon-pink);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-text a:hover {
+            color: var(--neon-rose);
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 45, 149, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--neon-pink);
+            color: var(--bg-dark);
+            border-color: var(--neon-pink);
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 45, 149, 0.4);
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            padding: 45px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 45, 149, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group { margin-bottom: 25px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 45, 149, 0.05);
+            border: 1px solid rgba(255, 45, 149, 0.2);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 0 3px rgba(255, 45, 149, 0.1), 0 0 20px rgba(255, 45, 149, 0.1);
+            background: rgba(255, 45, 149, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            font-size: 1rem;
+            letter-spacing: 3px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid rgba(255, 45, 149, 0.15);
+            padding: 60px 20px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.5);
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            margin-bottom: 20px;
+            letter-spacing: 6px;
+            text-shadow: 0 0 20px rgba(255, 45, 149, 0.4);
+        }
+
+        .footer-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            line-height: 1.9;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px rgba(255, 45, 149, 0.3);
+        }
+
+        .footer-bottom {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 45, 149, 0.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(13, 2, 8, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(15px);
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            max-width: 450px;
+            width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 45, 149, 0.2);
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.5),
+                0 0 40px rgba(255, 45, 149, 0.1);
+            animation: modalIn 0.4s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 45, 149, 0.1);
+            border: 1px solid rgba(255, 45, 149, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--neon-pink);
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(255, 45, 149, 0.3);
+        }
+
+        .modal h3 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--neon-pink);
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px rgba(255, 45, 149, 0.2);
+        }
+
+        .modal p {
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .modal-close {
+            background: linear-gradient(135deg, var(--neon-magenta), var(--neon-pink));
+            color: #fff;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 20, 147, 0.5);
+        }
+
+
+        /* Gallery */
+        .gallery {
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 45, 149, 0.04) 0%, transparent 70%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 280px);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(255, 45, 149, 0.15);
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(13, 2, 8, 0.9) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h4 {
+            color: var(--neon-pink);
+            font-size: 1.3rem;
+            font-family: 'Noto Serif TC', serif;
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px rgba(255, 45, 149, 0.3);
+        }
+
+        .gallery-overlay p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Past Shows */
+        .past-shows {
+            background: var(--bg-section);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .past-shows::before {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(184, 41, 221, 0.05) 0%, transparent 70%);
+        }
+
+        .past-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .past-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 45, 149, 0.12);
+            transition: all 0.4s ease;
+        }
+
+        .past-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 45, 149, 0.3);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.4),
+                0 0 40px rgba(255, 45, 149, 0.1);
+        }
+
+        .past-image {
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .past-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .past-card:hover .past-image img {
+            transform: scale(1.08);
+        }
+
+        .past-year {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--neon-magenta), var(--neon-pink));
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .past-content {
+            padding: 30px;
+        }
+
+        .past-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            color: var(--neon-pink);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 45, 149, 0.2);
+        }
+
+        .past-desc {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .past-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .past-meta span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .past-meta span i {
+            color: var(--neon-purple);
+        }
+
+        /* Responsive for new sections */
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 200px);
+            }
+            .gallery-item.large {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .gallery-item.wide {
+                grid-column: span 2;
+            }
+            .past-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(6, 200px);
+            }
+            .gallery-item.large,
+            .gallery-item.wide {
+                grid-column: span 1;
+            }
+        }
+
+        /* Video Section */
+        .video-section {
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 45, 149, 0.05) 0%, transparent 70%);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 45, 149, 0.15);
+            transition: all 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 45, 149, 0.3);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.4),
+                0 0 40px rgba(255, 45, 149, 0.1);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 30px;
+        }
+
+        .video-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.3rem;
+            color: var(--neon-pink);
+            margin-bottom: 12px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(255, 45, 149, 0.2);
+        }
+
+        .video-desc {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.9;
+        }
+
+        /* Responsive for video */
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title { font-size: 3.5rem; letter-spacing: 12px; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .staff-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-dark);
+                flex-direction: column;
+                padding: 25px;
+                gap: 20px;
+                border-bottom: 1px solid rgba(255, 45, 149, 0.2);
+            }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: block; }
+            .hero-title { font-size: 2.8rem; letter-spacing: 8px; }
+            .hero-subtitle { font-size: 1.2rem; letter-spacing: 6px; }
+            .hero-info {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .section-title { font-size: 1.8rem; letter-spacing: 4px; }
+            .scene-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .scene-type { margin-left: 80px; }
+            .contact-form { padding: 30px; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">圓仔花劇坊</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">創作緣起</a></li>
+                <li><a href="#scenes">演出段落</a></li>
+                <li><a href="#music">演出樂曲</a></li>
+                <li><a href="#team">主創團隊</a></li>
+                <li><a href="#staff">演職人員</a></li>
+                <li><a href="#gallery">演出劇照</a></li>
+                <li><a href="#videos">精彩片段</a></li>
+                <li><a href="#past-shows">過往演出</a></li>
+                <li><a href="#contact">聯絡我們</a></li>
+            </ul>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-tag">圓仔花意識拼貼劇坊</p>
+            <h1 class="hero-title">鶯鶯</h1>
+            <p class="hero-subtitle">ING-ING</p>
+            <p class="hero-desc">
+                現代劇場 × 歌仔戲 × 南管戲<br>
+                傳統和現代的女性內在之歌
+            </p>
+            <div class="hero-info">
+                <div class="hero-info-item">
+                    <div class="date">10/23</div>
+                    <div class="time">19:30</div>
+                </div>
+                <div class="hero-info-item">
+                    <div class="date">10/24</div>
+                    <div class="time">14:30 / 19:30</div>
+                </div>
+                <div class="hero-info-item">
+                    <div class="date">10/25</div>
+                    <div class="time">14:30</div>
+                </div>
+            </div>
+            <p class="hero-venue">基隆島嶼劇場</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-ticket-alt"></i>
+                    購票資訊
+                </a>
+                <a href="#about" class="btn btn-outline">
+                    <i class="fas fa-play-circle"></i>
+                    了解作品
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about-show" id="about">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">About</p>
+                <h2 class="section-title">創作緣起</h2>
+                <p class="section-desc">一個關於流鶯、關於女性、關於愛與被愛的故事</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <h3>劇情簡介</h3>
+                    <p>
+                        演出主要故事聚焦在，以阻街攬客維生的性工作者（俗稱流鶯）<span class="highlight">鶯鶯</span>，跟已經與她持續維持一段關係的客人<span class="highlight">福順</span>的身上。福順五年前因機緣巧合，遇見與自己過世的妻子極為相像的鶯鶯。此後，每週福順固定有一天，會來到鶯鶯這裡。
+                    </p>
+                    <p>
+                        似乎，只要看見鶯鶯，就如同妻子不曾離開。福順總是靜靜地聽著鶯鶯，東拉西扯的說著自己近日的遭遇，或是過往的曾經。兩人之間的關係，和一般來找鶯鶯的其他客人截然不同。
+                    </p>
+                    <p>
+                        這一個晚上，對於鶯鶯來說是特別的。因為，福順沒有一如往常，出現在鶯鶯家門口。但鶯鶯卻跟往常一樣，對著福順述說與自己有關的事情。
+                    </p>
+                    <div class="concept-tags">
+                        <span class="concept-tag">現代劇場</span>
+                        <span class="concept-tag">歌仔戲</span>
+                        <span class="concept-tag">南管戲</span>
+                        <span class="concept-tag">女性議題</span>
+                        <span class="concept-tag">傳統與現代</span>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="about-image-main" style="background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/gRnfUrFIMwRPRWBe.webp'); background-size: cover; background-position: center;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenes -->
+    <section class="scenes" id="scenes">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Scenes</p>
+                <h2 class="section-title">演出段落</h2>
+                <p class="section-desc">八場戲，交織出鶯鶯的內心世界</p>
+            </div>
+            <div class="scene-list">
+                <div class="scene-item">
+                    <span class="scene-number">序曲</span>
+                    <span class="scene-title">花街柳巷的日常</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場一</span>
+                    <span class="scene-title">約定日</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場二</span>
+                    <span class="scene-title">裝扮</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場二之一</span>
+                    <span class="scene-title">南管戲《共君斷約》</span>
+                    <span class="scene-type">南管戲</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場三</span>
+                    <span class="scene-title">鶯鶯和福順</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場四</span>
+                    <span class="scene-title">初相見</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場四之一</span>
+                    <span class="scene-title">南管戲《孤栖悶》</span>
+                    <span class="scene-type">南管戲</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場五</span>
+                    <span class="scene-title">尪某</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場六</span>
+                    <span class="scene-title">人生如戲</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場六之一</span>
+                    <span class="scene-title">南管戲《春光明媚》</span>
+                    <span class="scene-type">南管戲</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場七</span>
+                    <span class="scene-title">祭往日情份</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">場八</span>
+                    <span class="scene-title">如常</span>
+                </div>
+                <div class="scene-item">
+                    <span class="scene-number">尾聲</span>
+                    <span class="scene-title">南管戲《望明月》</span>
+                    <span class="scene-type">南管戲</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music -->
+    <section class="music" id="music">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Music</p>
+                <h2 class="section-title">演出樂曲</h2>
+                <p class="section-desc">傳統戲曲與現代音樂的交織對話</p>
+            </div>
+            <div class="music-grid">
+                <div class="music-card">
+                    <div class="music-type">南管戲</div>
+                    <h3 class="music-title">共君斷約</h3>
+                    <p class="music-singer">演唱 / 張春玲</p>
+                    <p class="music-desc">選自經典劇目「陳三五娘」。陳三和五娘二人，樓台投送荔枝做為定情信物。五娘透過一曲《共君斷約》作為情感確立的盟約。</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-type">南管戲</div>
+                    <h3 class="music-title">孤栖悶</h3>
+                    <p class="music-singer">演唱 / 張春玲</p>
+                    <p class="music-desc">「陳三五娘」相當經典的一段。五娘唱出心中思念之苦。鶯鶯憶起和福順的初相識，陷入種種回憶之中。</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-type">南管戲</div>
+                    <h3 class="music-title">春光明媚</h3>
+                    <p class="music-singer">演唱 / 張春玲</p>
+                    <p class="music-desc">記載出處為「梁祝」，台灣傳承的版本引用「陳三五娘」折子「跳牆」。燦然像是鶯鶯為時不長的青春快樂時光。</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-type">南管戲</div>
+                    <h3 class="music-title">望明月</h3>
+                    <p class="music-singer">演唱 / 張春玲</p>
+                    <p class="music-desc">出自「西廂記」，描寫張君瑞於月夜，人在書案前，卻心緒雜亂，思念、企盼著心愛的崔鶯鶯到來。</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-type">台語歌曲</div>
+                    <h3 class="music-title">夜夜為你來失眠</h3>
+                    <p class="music-singer">演唱 / 米雪</p>
+                    <p class="music-desc">作詞/斐聲　作曲/台灣民謠。台灣台語歌曲中相當經典的一首老歌，旋律取自台灣民謠。</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-type">台語歌曲</div>
+                    <h3 class="music-title">失戀亭</h3>
+                    <p class="music-singer">演唱 / 米雪</p>
+                    <p class="music-desc">作詞/黃俊雄　作曲/林禮涵。黃俊雄布袋戲「大唐五虎將」主題曲，取材南管「四空仔」改編而成的台語經典歌曲。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Team</p>
+                <h2 class="section-title">主創團隊</h2>
+                <p class="section-desc">跨領域藝術家攜手共創</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/lqzdiQqlywqaOnal.jpg" alt="黃宣諭"></div>
+                    <div class="team-content">
+                        <div class="team-role">製作・編劇・導演</div>
+                        <h3 class="team-name">黃宣諭</h3>
+                        <p class="team-bio">圓仔花意識拼貼劇坊團長，國家文化藝術基金會「青創會」第二屆獲選。台南大學戲劇創作與應用研究所碩士，專長戲劇教育、劇場編導。</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/dOfxgrsWcZYevYBx.jpg" alt="米雪"></div>
+                    <div class="team-content">
+                        <div class="team-role">演員</div>
+                        <h3 class="team-name">米雪（陳湣玲）</h3>
+                        <p class="team-bio">第26屆華人藝術薪傳獎-地方戲劇類獲獎。新協興歌劇團編導演全能才女，出身歌仔戲世家，在舞台上生、旦、丑兼演。</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/zZlwTaaHmasGozst.jpg" alt="張春玲"></div>
+                    <div class="team-content">
+                        <div class="team-role">演員・南管戲</div>
+                        <h3 class="team-name">張春玲</h3>
+                        <p class="team-bio">文化部南管戲結業藝生，五權社區大學南管戲課程指導教師。1999年隨清雅樂府赴美國紐約中心演出《入山門》。</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/seskXzbFSpDdOIqP.jpg" alt="薛衣珊"></div>
+                    <div class="team-content">
+                        <div class="team-role">音樂・音效・主題曲創作</div>
+                        <h3 class="team-name">薛衣珊</h3>
+                        <p class="team-bio">國立交通大學音樂研究所畢業，獲美國百克里音樂院獎學金赴美進修。電視劇主題及片尾曲譜曲、演唱。</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/rQuCsafbQWeIxIAp.jpg" alt="賴慧珈"></div>
+                    <div class="team-content">
+                        <div class="team-role">整體視覺暨舞台設計</div>
+                        <h3 class="team-name">賴慧珈</h3>
+                        <p class="team-bio">畢業於華梵大學工業設計學系，自由藝術工作者。經手多項國際交流計畫、展演專案執行、展覽空間設計。</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-image"><img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/pQIIaxYYPvPGDAaV.jpg" alt="黃冠鳴"></div>
+                    <div class="team-content">
+                        <div class="team-role">燈光設計暨技術統合</div>
+                        <h3 class="team-name">黃冠鳴</h3>
+                        <p class="team-bio">國立臺北藝術大學劇場設計畢業，主修燈光設計。目前為自由接案者，擅長燈光與舞台設計、空間規劃。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff -->
+    <section class="staff" id="staff">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Staff</p>
+                <h2 class="section-title">演職人員總表</h2>
+                <p class="section-desc">感謝每一位幕前幕後的夥伴</p>
+            </div>
+            <div class="staff-grid">
+                <div class="staff-item">
+                    <span class="staff-role">製作人</span>
+                    <span class="staff-name">黃宣諭</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">編劇</span>
+                    <span class="staff-name">黃宣諭</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">導演</span>
+                    <span class="staff-name">黃宣諭</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">舞監</span>
+                    <span class="staff-name">黃宣諭</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">傳統音樂顧問・彙編協力</span>
+                    <span class="staff-name">陳碧貞</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">服裝・造型設計</span>
+                    <span class="staff-name">林玉媛</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">梳化執行（傳統）</span>
+                    <span class="staff-name">李郁英</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">梳化執行（現代）</span>
+                    <span class="staff-name">林伊丹</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">空間花藝裝置設計</span>
+                    <span class="staff-name">許裕鴻</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">燈光設計助理</span>
+                    <span class="staff-name">洪承楷</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">音響設計</span>
+                    <span class="staff-name">陳子安</span>
+                </div>
+                <div class="staff-item">
+                    <span class="staff-role">音響技術</span>
+                    <span class="staff-name">邱昊廷</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Gallery</p>
+                <h2 class="section-title">演出劇照</h2>
+                <p class="section-desc">舞台上的每一刻，都是永恆的記憶</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/QRmWepjrFfYdirCu.webp" alt="演出劇照 - 舞台場景">
+                    <div class="gallery-overlay">
+                        <h4>舞台全景</h4>
+                        <p>演出的完整舞台呈現</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/FivTwGhsGJBZpyKy.webp" alt="演出劇照 - 演員特寫">
+                    <div class="gallery-overlay">
+                        <h4>演員風采</h4>
+                        <p>精彩的表演時刻</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/VTxppbMeADDoDilx.webp" alt="演出劇照 - 舞台互動">
+                    <div class="gallery-overlay">
+                        <h4>舞台互動</h4>
+                        <p>角色間的精彩對手戲</p>
+                    </div>
+                </div>
+                <div class="gallery-item wide">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/ubeqhCgoIxMBURfh.webp" alt="演出劇照 - 舞台場景">
+                    <div class="gallery-overlay">
+                        <h4>舞台設景</h4>
+                        <p>精心打造的演出環境</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Highlights -->
+    <section class="video-section" id="videos">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Highlights</p>
+                <h2 class="section-title">精彩片段</h2>
+                <p class="section-desc">搶先看《鶯鶯》的動人瞬間</p>
+            </div>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/8LD0q9lW3QY" 
+                            title="鶯鶯精彩片段一"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">《鶯鶯》宣傳預告</h3>
+                        <p class="video-desc">現代劇場 × 歌仔戲 × 南管戲的跨界碰撞，感受傳統與現代交織的女性內在之歌。</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/e5-jz6_QYC4" 
+                            title="鶯鶯精彩片段二"
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">《鶯鶯》幕後花絮</h3>
+                        <p class="video-desc">走進排練現場，一窺圓仔花劇坊的創作歷程與演員們的幕後故事。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Shows -->
+    <section class="past-shows" id="past-shows">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Past Shows</p>
+                <h2 class="section-title">過往演出精彩片段</h2>
+                <p class="section-desc">圓仔花劇坊的藝術軌跡</p>
+            </div>
+            <div class="past-grid">
+                <div class="past-card">
+                    <div class="past-image">
+                        <div class="video-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0;">
+                            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/oqOycuDRWQ0" title="叛逆青年的奇遇" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="past-year">2024</div>
+                    </div>
+                    <div class="past-content">
+                        <h3 class="past-title">《叛逆青年的奇遇　妙？扁？妙？》</h3>
+                        <p class="past-desc">圓仔花劇坊最新創作，探索青年世代的困境與夢想，融合現代劇場與傳統戲曲元素。</p>
+                    </div>
+                </div>
+                <div class="past-card">
+                    <div class="past-image">
+                        <div class="video-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0;">
+                            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/RfG9BnwWxjA" title="田螺記" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="past-year">2023</div>
+                    </div>
+                    <div class="past-content">
+                        <h3 class="past-title">《田螺記》</h3>
+                        <p class="past-desc">圓仔花劇坊製作，以民間故事為題材，展現傳統與現代的對話。</p>
+                    </div>
+                </div>
+<div class="past-card">
+                    <div class="past-image">
+                        <div class="video-wrapper" style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0;">
+                            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/2YAq1MpzBdI" title="難管南管" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                        <div class="past-year">2009</div>
+                    </div>
+                    <div class="past-content">
+                        <h3 class="past-title">《難管南管》</h3>
+                        <p class="past-desc">圓仔花意識拼貼劇坊製作，展現南管戲的古雅音韵與藝術魚力。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- History -->
+    <section class="history" id="history">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">History</p>
+                <h2 class="section-title">創作者自序</h2>
+                <p class="section-desc">從桃園文昌公園到舞台的旅程</p>
+            </div>
+            <div class="history-content">
+                <div class="history-text">
+                    <p>
+                        鶯鶯燕燕穿梭的花街柳巷中尋花問柳<br>
+                        鶯聲燕語耳畔呢喃<br>
+                        紅男綠女雲雨之間<br>
+                        含情脈脈、濃情密意都只是乍現春光
+                    </p>
+                    <p>
+                        一夜夫妻之間無需海誓山盟<br>
+                        風花雪月過後枉論天長地久<br>
+                        既然露水姻緣何來長相廝守<br>
+                        迎來送往之間皆是虛情假意
+                    </p>
+                    <div class="quote">
+                        何為實？何為虛？<br>
+                        既是假，又若真！<br>
+                        時過境遷，流鶯已逝！<br>
+                        誰念誰想，誰記鶯鶯？
+                    </div>
+                    <p>
+                        桃園文昌公園旁邊就是許多年輕學子會去自習溫書的「K書中心」。公園有高大的樹木綠蔭、涼亭，因此，聚集大量長輩前來，泡茶、下棋、談天。便有許多仰賴較年長顧客維生的流鶯，在公園內四處徘徊、攬客。
+                    </p>
+                    <p>
+                        一個荒謬的情境，我認識了特別的流鶯阿姨。因為她幽默的個性和言談，讓原本帶著些許鄙視和敵意的我，和阿姨交談中，放下有色眼鏡。重新認識眼前樂觀開朗的努力過著孤單、貧困的生活，卻沒有絲毫怨懟的女性長者。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-tag">Contact</p>
+                <h2 class="section-title">聯絡我們</h2>
+                <p class="section-desc">歡迎關注圓仔花意識拼貼劇坊</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>圓仔花意識拼貼劇坊</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>聯絡電話</h4>
+                            <p><a href="tel:+886980369933">+886-980-36-9933</a>（黃先生）</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>電子郵件</h4>
+                            <p><a href="mailto:localflowertheater@gmail.com">localflowertheater@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>演出地點</h4>
+                            <p>基隆島嶼劇場</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>演出時間</h4>
+                            <p>2026/10/23（五）19:30<br>2026/10/24（六）14:30 / 19:30<br>2026/10/25（日）14:30</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" title="粉絲專頁"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">您的姓名</label>
+                            <input type="text" id="name" placeholder="請輸入您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">電子郵件</label>
+                            <input type="email" id="email" placeholder="請輸入您的電子郵件" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">聯絡電話</label>
+                            <input type="tel" id="phone" placeholder="請輸入您的聯絡電話">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">留言內容</label>
+                            <textarea id="message" placeholder="請輸入您想說的話..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            送出留言
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">圓仔花意識拼貼劇坊</div>
+            <p class="footer-desc">
+                現代劇場 × 歌仔戲 × 南管戲<br>
+                傳統和現代的女性內在之歌
+            </p>
+            <div class="footer-links">
+                <a href="#about">創作緣起</a>
+                <a href="#scenes">演出段落</a>
+                <a href="#music">演出樂曲</a>
+                <a href="#team">主創團隊</a>
+                <a href="#gallery">演出劇照</a>
+                <a href="#videos">精彩片段</a>
+                <a href="#past-shows">過往演出</a>
+                <a href="#contact">聯絡我們</a>
+            </div>
+            <div class="footer-bottom">
+                <p> 圓仔花意識拼貼劇坊 版權所有</p>
+                <p style="margin-top: 8px; font-size: 0.8rem;">指導單位 / 國家文化藝術基金會・基隆市政府文化局　主辦單位 / 基隆市政府文化局・圓仔花意識拼貼劇坊</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3>訊息已送出</h3>
+            <p>感謝您的來信，我們會盡快與您聯繫！</p>
+            <button class="modal-close" onclick="closeModal()">確定</button>
+        </div>
+    </div>
+
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Modal
+        function showModal() {
+            document.getElementById('modal').classList.add('active');
+        }
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showModal();
+            this.reset();
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scene-item, .music-card, .team-card, .staff-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

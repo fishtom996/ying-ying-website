@@ -783,7 +783,11 @@
             position: relative;
         }
 
-        .history-content { max-width: 800px; margin: 0 auto; }
+        .history-content { max-width: 1100px; margin: 0 auto; display: flex; gap: 50px; align-items: flex-start; }
+        .history-image { flex: 0 0 380px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        .history-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .history-text-wrap { flex: 1; }
+        @media (max-width: 768px) { .history-content { flex-direction: column; } .history-image { flex: none; width: 100%; } }
 
         .history-text {
             color: var(--text-dim);
@@ -1952,6 +1956,10 @@
                 <p class="section-desc">從桃園文昌公園到舞台的旅程</p>
             </div>
             <div class="history-content">
+                <div class="history-image">
+                    <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/leifxScudgHHhNeP.webp" alt="創作源起劇照">
+                </div>
+                <div class="history-text-wrap">
                 <div class="history-text">
                     <p>
                         鶯鶯燕燕穿梭的花街柳巷中尋花問柳<br>
@@ -1977,6 +1985,7 @@
                     <p>
                         一個荒謬的情境，我認識了特別的流鶯阿姨。因為她幽默的個性和言談，讓原本帶著些許鄙視和敵意的我，和阿姨交談中，放下有色眼鏡。重新認識眼前樂觀開朗的努力過著孤單、貧困的生活，卻沒有絲毫怨懟的女性長者。
                     </p>
+                </div>
                 </div>
             </div>
         </div>

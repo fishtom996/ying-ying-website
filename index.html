@@ -1539,52 +1539,65 @@
     </section>
 
     <!-- Audience Reviews Marquee -->
+    <style>
+    @keyframes reviewScroll {
+        0%   { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+    .review-track {
+        display: flex;
+        white-space: nowrap;
+        animation: reviewScroll 60s linear infinite;
+    }
+    .review-track:hover { animation-play-state: paused; }
+    .review-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 40px;
+        color: #ffe0f0;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+    }
+    .review-item .review-source {
+        color: #ff69b4;
+        font-weight: 700;
+        margin-right: 10px;
+        white-space: nowrap;
+    }
+    .review-sep {
+        color: rgba(255,105,180,0.4);
+        margin: 0 30px;
+        font-size: 1.2rem;
+    }
+    </style>
     <section style="padding: 0; background: rgba(255,20,120,0.12); border-top: 1px solid rgba(255,105,180,0.3); border-bottom: 1px solid rgba(255,105,180,0.3); overflow: hidden; position: relative;">
         <div style="display: flex; align-items: center; min-height: 70px;">
-            <div style="background: linear-gradient(90deg, #ff2d95, #b829dd); color: #fff; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; padding: 0 22px; white-space: nowrap; min-height: 70px; display: flex; align-items: center; z-index: 2; flex-shrink: 0;">觀眾心得</div>
+            <div style="background: linear-gradient(90deg, #ff2d95, #b829dd); color: #fff; font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; padding: 0 22px; white-space: nowrap; min-height: 70px; display: flex; align-items: center; z-index: 2; flex-shrink: 0; box-shadow: 4px 0 15px rgba(255,45,149,0.4);">觀眾心得</div>
             <div style="flex: 1; overflow: hidden; position: relative;">
-                <div id="reviewMarquee" style="display: flex; align-items: center; min-height: 70px; padding: 0 20px;">
-                    <p id="reviewText" style="color: #ffe0f0; font-size: 0.95rem; line-height: 1.6; letter-spacing: 0.5px; margin: 0; opacity: 1; transition: opacity 0.8s ease;"></p>
+                <div class="review-track">
+                    <span class="review-item"><span class="review-source">『臺南場吴小姐』</span>演出非常巧妙的融合現代和傳統，並且訴說一個感人的故事，令人耳目一新。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺北場李先生』</span>這是屬於時代的故事，屬於城市的故事，也是你我生命中的故事。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺南場黃小姐』</span>米雪老師的演出真的是相當令人驚豔，我連看兩場都還是很感動。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺北場李先生』</span>這是我第1次看南管戲的演出，張春玲老師的身段跟唱腔都讓人驚豔。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺南場曾小姐』</span>感謝朋友拖我來看這個演出，這應該是我近10年來看過最感人的表演。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺北場張太太』</span>兩位老師的演出真的太令人感動了，希望能夠一直持續加演。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺南場吴先生』</span>原本擔心南管戲會讓我想睡覺，卻沒想到讓我這麼感動，完全出乎意料。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺北場紀小姐』</span>這一定是此生必看的演出之一！</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺北場高小姐』</span>這個演出用最溫柔的方式，呈現社會最生硬的議題，真的讓人相當難忘。</span>
+                    <span class="review-sep">♥</span>
+                    <span class="review-item"><span class="review-source">『臺南場吴小姐』</span>自古以來，許多女性的處境就相當的困難，古代的千金小姐跟現代的流鶯，在不自主的情況下又有什麼不同？</span>
                 </div>
             </div>
         </div>
     </section>
-
-    <script>
-    (function() {
-        var reviews = [
-            { location: '臺南場吴小姐', text: '演出非常巧妙的融合現代和傳統，並且訴說一個感人的故事，令人耳目一新。' },
-            { location: '臺北場李先生', text: '這是屬於時代的故事，屬於城市的故事，也是你我生命中的故事。' },
-            { location: '臺南場黃小姐', text: '米雪老師的演出真的是相當令人驚豔，我連看兩場都還是很感動。' },
-            { location: '臺北場李先生', text: '這是我第1次看南管系的演出，張春玲老師的身段跟唱腔都讓人驚豔。' },
-            { location: '臺南場曾小姐', text: '感謝朋友託我來看這個演出，這應該是我近10年來看過最感人的表演。' },
-            { location: '臺北場張太太', text: '兩位老師的演出真的太令人感動了，希望能夠一直持續加演。' },
-            { location: '臺南場吴先生', text: '原本擔心南管戲會讓我想睡覺，卻沒想到讓我這麼感動，完全出乎意料。' },
-            { location: '臺北場紀小姐', text: '這一定是此生必看的演出之一！' }
-        ];
-        var current = 0;
-        var el = document.getElementById('reviewText');
-
-        function showReview(index) {
-            el.style.opacity = '0';
-            setTimeout(function() {
-                var r = reviews[index];
-                el.innerHTML = '「' + r.location + '」&nbsp;&nbsp;' + r.text;
-                el.style.opacity = '1';
-            }, 800);
-        }
-
-        function nextReview() {
-            current = (current + 1) % reviews.length;
-            showReview(current);
-        }
-
-        // Show first review
-        showReview(0);
-        // Rotate every 5 seconds
-        setInterval(nextReview, 10000);
-    })();
-    </script>
 
     <!-- Performance History -->
     <section style="padding: 60px 0; background: linear-gradient(135deg, rgba(20,0,30,0.95) 0%, rgba(40,0,60,0.95) 100%); border-bottom: 1px solid rgba(255,105,180,0.15);">

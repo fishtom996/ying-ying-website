@@ -2244,5 +2244,97 @@
             observer.observe(el);
         });
     </script>
+
+    <!-- 背景音樂播放器 -->
+    <audio id="bgMusic" loop>
+        <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663617527901/jKMybZXMFBiqKXtT.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 浮動音樂控制按鈕 -->
+    <div id="musicControl" style="
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 20, 147, 0.85);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 4px 15px rgba(255, 20, 147, 0.5);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+    " title="鶯鶯期盼 - 主題曲">
+        <i id="musicIcon" class="fas fa-music" style="color: white; font-size: 18px;"></i>
+    </div>
+
+    <style>
+        #musicControl:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 20, 147, 0.7);
+        }
+        @keyframes musicPulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(255, 20, 147, 0.5); }
+            50% { box-shadow: 0 4px 25px rgba(255, 20, 147, 0.9); }
+        }
+        #musicControl.playing {
+            animation: musicPulse 2s ease-in-out infinite;
+        }
+    </style>
+
+    <script>
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
+
+        // 嘗試自動播放
+        function tryAutoPlay() {
+            bgMusic.volume = 0.5;
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-pause';
+                musicControl.classList.add('playing');
+            }).catch(() => {
+                // 瀏覽器阻擋自動播放，等待使用者互動
+                isPlaying = false;
+                musicIcon.className = 'fas fa-music';
+            });
+        }
+
+        // 頁面載入後嘗試自動播放
+        window.addEventListener('load', tryAutoPlay);
+
+        // 使用者首次點擊頁面時嘗試播放（給阻擋自動播放的瀏覽器）
+        document.addEventListener('click', function startOnClick() {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.className = 'fas fa-pause';
+                    musicControl.classList.add('playing');
+                });
+            }
+            document.removeEventListener('click', startOnClick);
+        }, { once: true });
+
+        // 點擊按鈕切換播放/暫停
+        musicControl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (isPlaying) {
+                bgMusic.pause();
+                isPlaying = false;
+                musicIcon.className = 'fas fa-music';
+                musicControl.classList.remove('playing');
+            } else {
+                bgMusic.play();
+                isPlaying = true;
+                musicIcon.className = 'fas fa-pause';
+                musicControl.classList.add('playing');
+            }
+        });
+    </script>
 </body>
 </html>
